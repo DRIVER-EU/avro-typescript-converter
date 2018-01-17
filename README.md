@@ -6,8 +6,12 @@ Simple tool to convert avro schema's to TypeScript interfaces. Based on [avro-ty
 
 Example: 
 
-```` node index.js -i input/cap-value.avsc -v
+```` 
+node index.js -i input/cap-value.avsc -v
+````
 
 or 
 
-```` npm run example
+```` 
+npm run example
+````
