@@ -1,0 +1,17 @@
+{
+  "name": "avro-typescript-converter",
+  "version": "0.0.1",
+  "description": "avro schema to typescript",
+  "main": "index.js",
+  "scripts": {
+    "example": "node index.js -i input/cap-value.avsc -v"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@types/command-line-args": "^4.0.2",
+    "@types/node": "^9.3.0",
+    "avro-typescript": "^0.0.5",
+    "command-line-args": "^4.0.7",
+    "fs": "^0.0.1-security"
+  }
+}
