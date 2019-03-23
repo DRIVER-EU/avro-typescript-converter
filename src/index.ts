@@ -86,7 +86,6 @@ const convert = () => {
     process.exit(0);
   }
   const outFolder = options.outFolder ? path.resolve(process.cwd(), options.outFolder) : path.dirname(options.input[0]);
-  console.log(outFolder);
   if (!fs.existsSync(outFolder)) {
     fs.mkdirSync(outFolder);
   }

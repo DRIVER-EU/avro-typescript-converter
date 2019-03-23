@@ -53,7 +53,6 @@ ${recordType.fields.map(field => convertFieldDec(field, buffer)).join('\n')}
 `;
   buffer.push(interfaceDef);
   interfaces[recordType.name] = cleanName;
-  // console.table(interfaces);
   return cleanName;
 };
 
