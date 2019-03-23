@@ -21,30 +21,16 @@
       "name": "status",
       "type": {
         "name": "Status",
-        "namespace": "eu.driver.model.cap",
         "type": "enum",
-        "symbols": [
-          "Actual",
-          "Exercise",
-          "System",
-          "Test",
-          "Draft"
-        ]
+        "symbols": ["Actual", "Exercise", "System", "Test", "Draft"]
       }
     },
     {
       "name": "msgType",
       "type": {
         "name": "MsgType",
-        "namespace": "eu.driver.model.cap",
         "type": "enum",
-        "symbols": [
-          "Alert",
-          "Update",
-          "Cancel",
-          "Ack",
-          "Error"
-        ]
+        "symbols": ["Alert", "Update", "Cancel", "Ack", "Error"]
       }
     },
     {
@@ -56,13 +42,8 @@
       "name": "scope",
       "type": {
         "name": "Scope",
-        "namespace": "eu.driver.model.cap",
         "type": "enum",
-        "symbols": [
-          "Public",
-          "Restricted",
-          "Private"
-        ]
+        "symbols": ["Public", "Restricted", "Private"]
       }
     },
     {
@@ -108,23 +89,20 @@
         "null",
         {
           "name": "Info",
-          "namespace": "eu.driver.model.cap",
+
           "type": "record",
           "fields": [
             {
               "name": "language",
               "default": "en-US",
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             },
             {
               "name": "category",
               "type": [
                 {
                   "name": "Category",
-                  "namespace": "eu.driver.model.cap",
+
                   "type": "enum",
                   "symbols": [
                     "Geo",
@@ -157,7 +135,7 @@
                 "null",
                 {
                   "name": "ResponseType",
-                  "namespace": "eu.driver.model.cap",
+
                   "type": "enum",
                   "symbols": [
                     "Shelter",
@@ -182,45 +160,27 @@
               "name": "urgency",
               "type": {
                 "name": "Urgency",
-                "namespace": "eu.driver.model.cap",
+
                 "type": "enum",
-                "symbols": [
-                  "Immediate",
-                  "Expected",
-                  "Future",
-                  "Past",
-                  "Unknown"
-                ]
+                "symbols": ["Immediate", "Expected", "Future", "Past", "Unknown"]
               }
             },
             {
               "name": "severity",
               "type": {
                 "name": "Severity",
-                "namespace": "eu.driver.model.cap",
+
                 "type": "enum",
-                "symbols": [
-                  "Extreme",
-                  "Severe",
-                  "Moderate",
-                  "Minor",
-                  "Unknown"
-                ]
+                "symbols": ["Extreme", "Severe", "Moderate", "Minor", "Unknown"]
               }
             },
             {
               "name": "certainty",
               "type": {
                 "name": "Certainty",
-                "namespace": "eu.driver.model.cap",
+
                 "type": "enum",
-                "symbols": [
-                  "Observed",
-                  "Likely",
-                  "Possible",
-                  "Unlikely",
-                  "Unknown"
-                ]
+                "symbols": ["Observed", "Likely", "Possible", "Unlikely", "Unknown"]
               }
             },
             {
@@ -234,7 +194,7 @@
                 "null",
                 {
                   "name": "ValueNamePair",
-                  "namespace": "eu.driver.model.cap",
+
                   "type": "record",
                   "fields": [
                     {
@@ -321,7 +281,7 @@
                 "null",
                 {
                   "name": "Resource",
-                  "namespace": "eu.driver.model.cap",
+
                   "type": "record",
                   "fields": [
                     {
@@ -330,15 +290,18 @@
                     },
                     {
                       "name": "size",
-                      "type": [
-                        "null",
-                        "int"
-                      ],
+                      "type": ["null", "int"],
                       "default": null
                     },
                     {
                       "name": "uri",
                       "doc": "TODO, anyURI",
+                      "type": ["null", "string"],
+                      "default": null
+                    },
+                    {
+                      "name": "mimeType",
+                      "doc": "The mimetype of the resource!",
                       "type": ["null", "string"],
                       "default": null
                     },
@@ -367,7 +330,7 @@
                 "null",
                 {
                   "name": "Area",
-                  "namespace": "eu.driver.model.cap",
+
                   "type": "record",
                   "fields": [
                     {
@@ -412,18 +375,12 @@
                     },
                     {
                       "name": "altitude",
-                      "type": [
-                        "null",
-                        "double"
-                      ],
+                      "type": ["null", "double"],
                       "default": null
                     },
                     {
                       "name": "ceiling",
-                      "type": [
-                        "null",
-                        "double"
-                      ],
+                      "type": ["null", "double"],
                       "default": null
                     }
                   ]

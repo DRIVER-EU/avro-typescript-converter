@@ -1,17 +1,41 @@
 {
   "name": "avro-typescript-converter",
   "version": "0.0.1",
-  "description": "avro schema to typescript",
-  "main": "index.js",
+  "description": "Convert an AVRO schema to a TypeScript interface.",
+  "main": "dist/src/index.js",
+  "author": "Rinze Bruining, Erik Vullings",
+  "bin": "./bin/run.js",
   "scripts": {
-    "example": "node index.js -i input/cap-value.avsc -v"
+    "start": "tsc -w",
+    "build": "tsc",
+    "patch-release": "npm version patch && npm publish && git push --follow-tags",
+    "minor-release": "npm version minor && npm publish && git push --follow-tags",
+    "example": "node dist/src/index.js -i example/standard_cap-value.avsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DRIVER-EU/avro-schemas.git"
+  },
+  "keywords": [
+    "Apache",
+    "Kafka",
+    "Apache",
+    "AVRO",
+    "test-bed"
+  ],
+  "bugs": {
+    "url": "https://github.com/DRIVER-EU/avro-schemas/issues"
+  },
+  "homepage": "https://github.com/DRIVER-EU/avro-schemas#readme",
   "license": "MIT",
   "dependencies": {
-    "@types/command-line-args": "^4.0.2",
-    "@types/node": "^9.3.0",
-    "avro-typescript": "^0.0.5",
-    "command-line-args": "^4.0.7",
-    "fs": "^0.0.1-security"
+    "command-line-args": "^5.0.2",
+    "command-line-usage": "^5.0.5"
+  },
+  "devDependencies": {
+    "@types/command-line-args": "^5.0.0",
+    "@types/command-line-usage": "5.0.1",
+    "@types/node": "^11.11.5",
+    "typescript": "^3.3.4000"
   }
 }
