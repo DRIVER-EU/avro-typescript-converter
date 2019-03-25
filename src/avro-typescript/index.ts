@@ -103,10 +103,9 @@ const convertType = (type: Type, buffer: string[]): string => {
 
 const convertFieldDec = (field: Field, buffer: string[]): string => {
   const doc = document(field, '\t');
-  return `${doc}\t${field.name}${isOptional(field.type) ? '?' : ''}: ${convertType(
-    field.type,
-    buffer
-  )};`;
+  const type = convertType(field.type, buffer);
+  const replacedType = interfaces.hasOwnProperty(type) ? interfaces[type] : type;
+  return `${doc}\t${field.name}${isOptional(field.type) ? '?' : ''}: ${replacedType};`;
 };
 
 /** Create documentation, if it exists */

@@ -11,6 +11,7 @@
       "program": "${workspaceFolder}\\dist\\src\\index.js",
       "args": [
         "-v",
+        "example/system_observer_tool_answer-value.avsc",
         "example/system_topic_access_invite-value.avsc",
         "example/system_timing-value.avsc",
         "example/standard_cap-value.avsc",

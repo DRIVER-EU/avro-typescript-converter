@@ -48,7 +48,7 @@ const options = commandLineArgs(optionDefinitions) as {
 
 const sections = [
   {
-    header: `${npmPackage.name}, v${npmPackage.version}`,
+    header: `${npmPackage.name}, v0.2.0`,
     content: `${npmPackage.license} license.
 
   ${npmPackage.description}
