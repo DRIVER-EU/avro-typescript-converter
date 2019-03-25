@@ -90,13 +90,18 @@ const convert = () => {
     fs.mkdirSync(outFolder);
   }
   options.input.forEach(input => {
-    const schemaText = fs.readFileSync(input, 'UTF8');
-    const schema = JSON.parse(schemaText) as RecordType;
-    const outFile = `${path.basename(input, path.extname(input))}.ts`;
-    const result = avroToTypeScript(schema as RecordType).replace(/\t/g, '  ');
-    fs.writeFileSync(path.join(outFolder, outFile), result, 'UTF8');
-    if (options.verbose) {
-      console.log(`${result} is written to ${outFile}.`);
+    if (!fs.existsSync(input) || !fs.statSync(input).isFile()) {
+      console.warn(`Warning: input file "${input}" does not exist! Skipping...\n
+Did you maybe forget to specify the "-o" flag for an output folder?`);
+    } else {
+      const schemaText = fs.readFileSync(input, 'UTF8');
+      const schema = JSON.parse(schemaText) as RecordType;
+      const outFile = `${path.basename(input, path.extname(input))}.ts`;
+      const result = avroToTypeScript(schema as RecordType).replace(/\t/g, '  ');
+      fs.writeFileSync(path.join(outFolder, outFile), result, 'UTF8');
+      if (options.verbose) {
+        console.log(`${result} is written to ${outFile}.`);
+      }
     }
   });
 };
