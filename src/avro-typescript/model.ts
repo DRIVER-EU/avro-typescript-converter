@@ -5,6 +5,7 @@ export type NameOrType = TypeNames | RecordType | ArrayType | NamedType;
 export type TypeNames = 'record' | 'array' | 'null' | 'map' | string;
 
 export interface Field {
+  doc?: string;
   name: string;
   type: Type;
   default?: string | number | null | boolean;

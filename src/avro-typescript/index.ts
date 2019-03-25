@@ -1,5 +1,4 @@
 /** Original sources https://github.com/joewood/avro-typescript */
-
 import {
   Type,
   Field,
@@ -11,6 +10,7 @@ import {
   EnumType,
   isOptional,
 } from './model';
+import { createDocumentation } from '../utils';
 export { RecordType } from './model';
 
 const interfaces = {} as { [key: string]: string };
@@ -46,8 +46,9 @@ const stripNamespace = (name: string) => name.split('.').pop() as string;
 
 /** Convert an Avro Record type. Return the name, but add the definition to the file */
 const convertRecord = (recordType: RecordType, buffer: string[]): string => {
+  const doc = document(recordType);
   const cleanName = `I${stripNamespace(recordType.name)}`;
-  const interfaceDef = `export interface ${cleanName} {
+  const interfaceDef = `${doc}export interface ${cleanName} {
 ${recordType.fields.map(field => convertFieldDec(field, buffer)).join('\n')}
 }
 `;
@@ -58,7 +59,8 @@ ${recordType.fields.map(field => convertFieldDec(field, buffer)).join('\n')}
 
 /** Convert an Avro Enum type. Return the name, but add the definition to the file */
 const convertEnum = (enumType: EnumType, buffer: string[]): string => {
-  const enumDef = `export enum ${enumType.name} {
+  const doc = document(enumType);
+  const enumDef = `${doc}export enum ${enumType.name} {
 \t${enumType.symbols.map(s => `${s} = '${s}'`).join(',\n\t')}
 }\n`;
   buffer.push(enumDef);
@@ -100,6 +102,16 @@ const convertType = (type: Type, buffer: string[]): string => {
 };
 
 const convertFieldDec = (field: Field, buffer: string[]): string => {
-  // Union Type
-  return `\t${field.name}${isOptional(field.type) ? '?' : ''}: ${convertType(field.type, buffer)};`;
+  const doc = document(field, '\t');
+  return `${doc}\t${field.name}${isOptional(field.type) ? '?' : ''}: ${convertType(
+    field.type,
+    buffer
+  )};`;
 };
+
+/** Create documentation, if it exists */
+const document = (field: Field, indent = '') => createDocumentation(field.doc, 80, indent);
+  // (field.doc ? document(`${indent}/** ${fold(field.doc)} */`) : '');
+
+/** Add the documentation to the output */
+// const document = (doc: string) => `${doc}${doc ? '\n' : ''}`;

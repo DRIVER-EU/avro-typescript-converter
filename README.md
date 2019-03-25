@@ -3,12 +3,13 @@
 Simple tool to convert AVRO schema's to TypeScript interfaces.
 Based on [avro-typescript](https://github.com/joewood/avro-typescript), but with several fixes and improvements:
 
-- added a command line interface
-- stripped namespaces
-- added string enumerations
-- removed duplicated types
-- fixed array types with union arrays
-- uses the recommended naming convention for interfaces (IMyName)
+- Added a command line interface
+- Stripped namespaces
+- Added string enumerations
+- Removed duplicated types
+- Fixed array types with union arrays
+- Uses the recommended naming convention for interfaces (IMyName)
+- Added documentation from schema to output
 
 ## Installation
 

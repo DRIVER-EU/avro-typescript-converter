@@ -11,7 +11,12 @@
       "program": "${workspaceFolder}\\dist\\src\\index.js",
       "args": [
         "-v",
-        "example/standard_geojson-value.avsc"
+        "example/system_topic_access_invite-value.avsc",
+        "example/system_timing-value.avsc",
+        "example/standard_cap-value.avsc",
+        "missing_file_test",
+        "-o",
+        "output"
       ],
       "cwd": "${workspaceFolder}",
       "outFiles": [
