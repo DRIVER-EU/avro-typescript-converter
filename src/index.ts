@@ -6,6 +6,7 @@ import { OptionDefinition } from 'command-line-args';
 import * as getUsage from 'command-line-usage';
 import { avroToTypeScript, RecordType } from './avro-typescript';
 import { fileURLToPath } from 'url';
+import { getFilesFromInput } from './utils.js';
 
 export interface IOptionDefinition extends OptionDefinition {
   description: string;
@@ -24,7 +25,7 @@ const optionDefinitions: IOptionDefinition[] = [
     defaultOption: true,
     type: String,
     multiple: true,
-    description: 'Input file (default option, so i can be omitted).',
+    description: 'Input file or folder (default option, so i can be omitted). If folder, reads all *avsc files.',
   },
   {
     name: 'verbose',
@@ -48,7 +49,7 @@ const options = commandLineArgs(optionDefinitions) as {
 
 const sections = [
   {
-    header: `${npmPackage.name}, v0.2.0`,
+    header: `${npmPackage.name}, v0.3.0`,
     content: `${npmPackage.license} license.
 
   ${npmPackage.description}
@@ -75,6 +76,10 @@ const sections = [
         desc: '03. Convert a schema to an interface, also displaying the output',
         example: '$ avro-typescript-converter -v example/standard_cap-value.avsc',
       },
+      {
+        desc: '04. Convert all schemas in a folder to an interface, also displaying the output',
+        example: '$ avro-typescript-converter -v example/',
+      },
     ],
   },
 ];
@@ -90,21 +95,19 @@ const convert = () => {
     fs.mkdirSync(outFolder);
   }
   options.input.forEach(input => {
-    if (!fs.existsSync(input) || !fs.statSync(input).isFile()) {
-      console.warn(`Warning: input file "${input}" does not exist! Skipping...\n
-Did you maybe forget to specify the "-o" flag for an output folder?`);
-    } else {
-      const schemaText = fs.readFileSync(input, 'UTF8');
-      const schema = JSON.parse(schemaText) as RecordType;
-      const outFile = `${path.basename(input, path.extname(input))}.ts`;
-      const result = avroToTypeScript(schema as RecordType).replace(/\t/g, '  ');
-      fs.writeFileSync(path.join(outFolder, outFile), result, 'UTF8');
-      if (options.verbose) {
-        console.log(`${result} is written to ${outFile}.`);
-      }
-    }
+    const validInputFiles = getFilesFromInput(input);
+    validInputFiles.forEach(input => {
+        const schemaText = fs.readFileSync(input, 'UTF8');
+        const schema = JSON.parse(schemaText) as RecordType;
+        const outFile = `${path.basename(input, path.extname(input))}.ts`;
+        const result = avroToTypeScript(schema as RecordType).replace(/\t/g, '  ');
+        fs.writeFileSync(path.join(outFolder, outFile), result, 'UTF8');
+        if (options.verbose) {
+          console.log(`${result} is written to ${outFile} in ${outFolder}.`);
+        }
+    });
   });
-};
+}
 
 convert();
 console.log('done');

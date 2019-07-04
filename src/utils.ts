@@ -1,3 +1,6 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 export const createDocumentation = (str?: string, width = 80, indent = '') => {
   const isSingleLine = (a: string[]) => a.length === 1 && a[0].length < width - 7;
   if (!str) {
@@ -48,3 +51,23 @@ export const fold = (str: string, width = 80, useSpaces = true, arr?: string[]):
     return fold(str.substring(nextIdx), width, useSpaces, arr);
   }
 };
+
+
+export const getFilesFromInput = (inputFileOrFolder: string, extension: string = 'avsc'): string[] => {
+  if (!fs.existsSync(inputFileOrFolder)) {
+    console.warn(`Warning: input file "${inputFileOrFolder}" does not exist! Skipping...\n
+Did you maybe forget to specify the "-o" flag for an output folder?`);
+    return [];
+  }
+  if (fs.statSync(inputFileOrFolder).isFile()) {
+    return [inputFileOrFolder];
+  }
+  if (fs.statSync(inputFileOrFolder).isDirectory()) {
+    const folderFiles = fs.readdirSync(inputFileOrFolder, {withFileTypes: true})
+      .filter(f => f.isFile())
+      .filter(f => f.name.endsWith(extension))
+      .map(f => path.join(inputFileOrFolder, f.name));
+    return folderFiles;
+  }
+  return [];
+}
